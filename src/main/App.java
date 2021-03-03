@@ -1,6 +1,7 @@
 package main;
 
 import main.db.AccountController;
+import main.db.AccountService;
 
 import java.util.Scanner;
 
@@ -10,12 +11,12 @@ public class App {
      */
    private final Scanner sc;
    private final AccountController ac;
-   private final Banking banking;
+   private final AccountService as;
 
-    public App(Scanner sc, AccountController ac, Banking banking) {
+    public App(Scanner sc, AccountController ac, AccountService as) {
         this.sc = sc;
         this.ac = ac;
-        this.banking = banking;
+        this.as = as;
     }
     /*
     안바뀔라면 BANK도 넣어야했다

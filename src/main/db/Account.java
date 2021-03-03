@@ -49,4 +49,21 @@ public class Account {
     public void setPw(String pw) {
         this.pw = pw;
     }
+
+   @Override
+    public boolean equals(Object obj){
+        //아이디와 비번이 동일한 경우 true를 리턴
+        if(obj instanceof Account){
+            Account account = (Account)obj;
+            return (id == account.id) && (pw.equals(account.pw));
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        //아이디와 이름이 같다면 동일한 값을 리턴
+        return id.hashCode();
+    }
 }
