@@ -2,27 +2,28 @@ package main.db;
 
 public class Account {
 
+
     private String pw;
     private String id;
     private String name;
-    private int stock;
+    private int currentStock;
 
     public Account(){
     }
 
-    public Account(String id, String pw, String name, int stock) {
+    public Account(String id, String pw, String name, int currentStock) {
         this.id = id;
         this.pw = pw;
         this.name = name;
-        this.stock = stock;
+        this.currentStock = currentStock;
     }
 
-    public int getStock() {
-        return stock;
+    public int getCurrentStock() {
+        return currentStock;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setCurrentStock(int currentStock) {
+        this.currentStock = currentStock;
     }
 
     public String getName() {

@@ -1,43 +1,44 @@
 package main.db;
 
-import main.db.AccountController;
-import main.main;
 import main.banking;
 
 import java.util.Scanner;
 
 public class AccountService {
 
-    banking b;
+    banking banking;
 
-    public AccountService(banking b) {
-        this.b = b;
+    public AccountService(banking banking) {
+        this.banking = banking;
     }
 
     int stock;
-    int tempMoney;
-            //new AccountController().account.getStock();
     Scanner sc = new Scanner(System.in);
 
-    public void menu() {
-        System.out.println("1. 입금 / 2. 출금 / 3. 송금 / 4. 로그아웃");
+
+    public void menu(String id) {
+        banking.check(id);
+        System.out.println("1. 입금 / 2. 출금 / 3. 송금 / 4. 잔액조회 / 5. 로그아웃");
         System.out.println("0을 누르면 종료");
         int cnt = sc.nextInt();
         if (cnt == 1) {
-            //b.save(stock);
-            System.out.println(won(b.save(stock)));
+            System.out.println(won(banking.save(stock)));
             저장(); //저장해야해
-            menu();
+            menu(id);
         } else if (cnt == 2) {
             //b.withdraw();
-            System.out.println(won(b.withdraw(stock)));
+            System.out.println(won(banking.withdraw(stock)));
             저장(); //저장해야해
-            menu();
-        } else if(cnt == 3) {
-            lookup();
-            저장(); //저장해야해
+            menu(id);
+        } else if (cnt == 3) {
+            banking.송금(stock);
+            //System.out.println(won(b.송금(stock)));
+            저장();
+            menu(id);
+        } else if (cnt == 4) {
+            System.out.println(won(banking.total()));
             //menu();
-        }  else if(cnt == 4) {
+        } else if (cnt == 5) {
             System.out.println("--로그아웃되었습니다--");
             new AccountController().logInAccount();
             //menu();
@@ -49,31 +50,8 @@ public class AccountService {
     }
 
     public String won(int stock) {
-        String newStock = "잔액: "+stock+"원";
-        return newStock;
-    }
-
-
-    public String lookup() {
-        System.out.println("송금 받을 아이디를 입력하세요");
-        String tempId = sc.next();
-        if(!new AccountController().map.containsKey(tempId)){ //왜때문에
-            System.out.println("해당하는 회원이 없습니다");
-            menu();
-        }
-        System.out.println("회원 조회에 성공했습니다.");
-        System.out.println(new AccountController().findAccountName(tempId)+"에게"+" 송금을 진행하시겠습니까?");
-        //System.out.println("[회원명 : "+new AccountController().findAccountName(tempId));
-        System.out.println("1. 네 / 아니오 ");
-        int cnt = sc.nextInt();
-        if(cnt==1) {
-            b.송금(tempId);
-        }else if (cnt==2) {
-            menu();
-        }else {
-            System.out.println("다시 입력해주세요");
-        }
-        return tempId;
+        String currentStock = "잔액: " + stock + "원";
+        return currentStock;
     }
 
     public void 저장() {
@@ -85,13 +63,4 @@ public class AccountService {
          */
     }
 
-
-
-
-    @Override
-    public String toString() {
-        return "banking{" +
-                "stock=" + stock +
-                '}';
-    }
 }
